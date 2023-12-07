@@ -1,3 +1,4 @@
+USE littlelemondb;
 -- Inserting data into the Customer table
 INSERT INTO Customer (CustomerID, CustomerFirstName, CustomerLastName, ContactNumber) VALUES
 (1, 'John', 'Doe', '123-456-7890'),
