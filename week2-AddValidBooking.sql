@@ -1,8 +1,8 @@
-USE LittleLemonDB;
+use littlelemondb;
 DROP PROCEDURE IF EXISTS AddValidBooking;
 DROP FUNCTION IF EXISTS Validate;
 
-DELIMITER $$
+DELIMITER \\
 
 CREATE FUNCTION Validate(RecordsFound INTEGER, message VARCHAR(255)) RETURNS INTEGER DETERMINISTIC
 BEGIN
@@ -10,9 +10,9 @@ BEGIN
         SIGNAL SQLSTATE 'ERR0R' SET MESSAGE_TEXT = message;
     END IF;
     RETURN RecordsFound;
-END$$
+END \\
 
-CREATE PROCEDURE AddValidBooking(IN BookingDate DATE, IN TableNumber INT)
+CREATE PROCEDURE AddValidBooking(IN BookingID INT,IN Tablenumber INT, IN CustomerID INT,IN BookingSlot varchar(50), IN BookingDate Date)
 	BEGIN
 		DECLARE `_rollback` BOOL DEFAULT 0;
 		DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
@@ -20,19 +20,19 @@ CREATE PROCEDURE AddValidBooking(IN BookingDate DATE, IN TableNumber INT)
         
         SELECT Validate(COUNT(*), CONCAT("Table ", TableNumber, " is already booked"))
         FROM bookings
-        WHERE date = BookingDate AND table_number = TableNumber;
+        WHERE BookingDate = BookingDate AND TableNo = TableNumber;
         
-		INSERT INTO bookings (date, table_number)
-		VALUES (BookingDate, TableNumber);
+		INSERT INTO bookings
+		VALUES (BookingID,TableNumber,CustomerID,BookingSlot,BookingDate);
 		
 		IF `_rollback` THEN
-			SELECT CONCAT("Table ", TableNumber, " is already booked - booking cancelled") AS "Booking status";
+			SELECT CONCAT("Table ", TableNumber, " is already booked.") As BOOKING_STATUS;
 			ROLLBACK;
 		ELSE
 			COMMIT;
 		END IF;
-    END$$
+    END \\
     
 DELIMITER ;
 
-CALL AddValidBooking("2022-12-17", 6);
+CALL AddValidBooking(9,9,5,"5:00 PM","2023-12-01");

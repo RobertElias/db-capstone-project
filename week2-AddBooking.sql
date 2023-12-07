@@ -1,8 +1,13 @@
-DROP PROCEDURE IF EXISTS AddBooking; 
-DELIMITER $$ 
-CREATE PROCEDURE AddBooking(IN BookingID INT, IN CustomerID INT, IN TableNumber INT, IN BookingDate DATE)
-BEGIN 
-INSERT INTO bookings (booking_id, customer_id, table_number, date) VALUES (BookingID, CustomerID, TableNumber, BookingDate); 
-SELECT "New booking added" AS "Confirmation";
-END$$ DELIMITER ; 
-CALL AddBooking(9, 3, 4, "2022-12-30");
+use littlelemondb;
+Drop Procedure If Exists AddBooking;
+Delimiter $$
+Create Procedure AddBooking(In BookingID Int, In BookingDate Date, In TableNumber Int, In CustomerID Int)
+Begin
+Insert Into bookings (BookingID, Date, TableNumber, CustomerID)
+Values(BookingID, BookingDate, TableNumber, CustomerID);
+Select Concat("New Booking Added") as CONFIRMATION;
+End $$ 
+Delimiter ;
+
+Call AddBooking(14, '2023-01-01', 17, 5);
+

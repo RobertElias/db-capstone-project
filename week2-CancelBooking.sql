@@ -1,7 +1,10 @@
-DROP PROCEDURE IF EXISTS CancelBooking; 
-DELIMITER $$ CREATE PROCEDURE CancelBooking(IN BookingID INT) 
-BEGIN 
-DELETE FROM bookings WHERE booking_id = BookingID; SELECT CONCAT("Booking ", BookingID, " cancelled") AS "Confirmation"; 
+use littlelemondb;
+DROP PROCEDURE IF EXISTS CancelBooking;
+DELIMITER $$ 
+CREATE PROCEDURE CancelBooking(IN booking_ID INT) 
+BEGIN
+Delete From bookings WHERE BookingID = booking_ID; 
+SELECT CONCAT("Booking ", booking_ID, " cancelled") AS "Confirmation"; 
 END$$ 
 DELIMITER ; 
-CALL CancelBooking(9);
+CALL CancelBooking(5);

@@ -1,9 +1,10 @@
+use littlelemondb;
 DROP PROCEDURE IF EXISTS UpdateBooking;
 DELIMITER $$ 
-CREATE PROCEDURE UpdateBooking(IN BookingID INT, IN BookingDate DATE) 
+CREATE PROCEDURE UpdateBooking(IN BookingID INT, IN BookDate DATE) 
 BEGIN
-UPDATE bookings SET date = BookingDate WHERE booking_id = BookingID; 
+UPDATE bookings SET BookingDate = BookDate WHERE BookingID = BookingID; 
 SELECT CONCAT("Booking ", BookingID, " updated") AS "Confirmation"; 
 END$$ 
 DELIMITER ; 
-CALL UpdateBooking(9, "2022-12-17");
+CALL UpdateBooking(3, "2023-10-25");
