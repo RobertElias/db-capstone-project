@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS `littlelemondb`.`Customer` (
   `CustomerID` INT NOT NULL,
   `CustomerFirstName` VARCHAR(45) NOT NULL,
   `CustomerLastName` VARCHAR(45) NULL,
-  `Email` VARCHAR(100) NOT NULL,
-  `ContactNumber` INT NOT NULL,
+  `ContactNumber` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`CustomerID`))
 ENGINE = InnoDB;
 
@@ -64,9 +63,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `littlelemondb`.`Orders` (
   `OrderID` INT NOT NULL,
   `CustomerID` INT NOT NULL,
+  `Type` VARCHAR(100) NOT NULL,
   `MenuID` INT NOT NULL,
   `Quantity` INT NOT NULL,
-  `BillCost` INT NOT NULL,
+  `TotalCost` INT NOT NULL,
   `OrderDate` DATE NOT NULL,
   PRIMARY KEY (`OrderID`),
   INDEX `CustomerID_idx` (`CustomerID` ASC) VISIBLE,
@@ -107,8 +107,7 @@ CREATE TABLE IF NOT EXISTS `littlelemondb`.`Staff` (
   `EmployeeID` INT NOT NULL,
   `EmployeeName` VARCHAR(100) NOT NULL,
   `Role` VARCHAR(100) NOT NULL,
-  `Email` VARCHAR(100) NOT NULL,
-  `ContactNumber` INT NOT NULL,
+  `ContactNumber` VARCHAR(20) NOT NULL,
   `Annual_Salary` INT NOT NULL,
   PRIMARY KEY (`EmployeeID`))
 ENGINE = InnoDB;
